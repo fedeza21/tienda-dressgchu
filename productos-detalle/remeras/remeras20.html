@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>camiseta</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../ropa.css" />
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo"><h1>DressGchu</h1></div>
+      <div class="user-area">
+        <!-- Opcional: usuario/carrito -->
+      </div>
+    </nav>
+  </header>
+
+  <main class="detalle-producto">
+    
+    <!-- Miniaturas a la izquierda -->
+    <div class="miniaturas">
+      <img src="../../img/camiseta arg.png" onclick="cambiarImagen(this.src)" alt="Vista 1" />
+      <img src="../../img/camiseta arg.png" onclick="cambiarImagen(this.src)" alt="Vista 2" />
+      <img src="../../img/camiseta arg.png" onclick="cambiarImagen(this.src)" alt="Vista 3" />
+    </div>
+
+    <!-- Imagen central -->
+    <div class="imagen-central">
+      <img id="imagenPrincipal" src="../../img/camiseta arg.png" alt="remera" />
+    </div>
+
+    <!-- Información a la derecha -->
+    <div class="info-producto">
+      <h1>camiseta</h1>
+      <p class="descripcion">Remera con tela suave, ideal para media estación.</p>
+      <p class="precio">$10.000</p>
+      <p class="cuotas">3 cuotas sin interés de $1.666</p>
+
+      <!-- Selector de talle -->
+      <label for="talle">Talle:</label>
+      <select id="talle" class="select-talle">
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+
+      <button onclick="guardarCompra()">Comprar</button>
+      <p id="mensajeCarrito" style="color: green; font-weight: bold;"></p>
+      <a href="../../cart.html" class="ver-carrito">Ver carrito →</a>
+
+      <!-- Flecha decorativa -->
+      <a href="../../productos/remeras.html" class="volver-arriba" title="Volver al inicio">
+        <img src="https://cdn-icons-png.flaticon.com/512/507/507257.png" alt="Volver" width="24" height="24" />
+      </a>
+    </div>
+  </main>
+
+  <!-- Supabase + lógica -->
+  <script type="module">
+    import { supabase } from '../../supabaseClient.js';
+
+    window.guardarCompra = async function () {
+      const talle = document.getElementById('talle').value;
+      const { data: { user }, error } = await supabase.auth.getUser();
+
+      if (error || !user) {
+        alert("Tenés que iniciar sesión primero.");
+        window.location.href = "../../login.html";
+        return;
+      }
+
+      if (!talle) {
+        alert("Seleccioná un talle antes de comprar.");
+        return;
+      }
+
+      const fecha = new Date().toLocaleString("es-AR", {
+        dateStyle: "short",
+        timeStyle: "short"
+      });
+
+      const producto = {
+        user_id: user.id,
+        nombre: 'remera', // 👈 nombre_producto
+        precio: 10000, // 👈 precio actualizado
+        talle,
+        fecha,
+      };
+
+      // Insertar en Supabase
+      const { error: insertError } = await supabase.from('carrito').insert([producto]);
+
+      if (insertError) {
+        alert("Hubo un error al guardar 😓");
+        console.error(insertError);
+      } else {
+        // También guardar en localStorage (incluye nombre_producto)
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        carrito.push({
+          nombre: 'remera',         // 👈 nombre_producto
+          precio: 10000, // 👈 precio actualizado
+          talle
+        });
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+
+        document.getElementById("mensajeCarrito").textContent =
+          `✅ Compra guardada: talle ${talle} — ${fecha}`;
+      }
+    };
+  </script>
+
+  <footer>
+    <div class="footer-logo">
+      <a href="https://tudireccion.com" target="_blank" title="Ir al portfolio">
+        <img src="https://cdn-icons-png.flaticon.com/512/3076/3076339.png" alt="Logo Hacker" />
+      </a>
+    </div>
+
+    <div class="footer-nombre">
+      <p>© 2025 Dress Indumentaria Deportiva</p>
+    </div>
+
+    <div class="redes-sociales">
+      <a href="https://instagram.com/dressgchu_" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/6422/6422200.png" alt="Instagram" />
+      </a>
+      <a href="https://tiktok.com/@tucuenta" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/6422/6422207.png" alt="TikTok" />
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda Deportiva</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ropa.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        <h1>DressGchu</h1>
+      </div>
+      <div class="user-area" id="user-area"></div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="categorias">
+      <h2>Explorá por categoría</h2>
+      <div class="burbujas-container">
+        <a href="productos/conjunto.html" class="burbuja">
+          <img src="https://cdn-icons-png.flaticon.com/512/3531/3531786.png" alt="Conjuntos" />
+          <span>Conjuntos</span>
+        </a>
+        <a href="productos/campera.html" class="burbuja">
+          <img src="https://cdn-icons-png.flaticon.com/512/3515/3515816.png" alt="Camperas" />
+          <span>Camperas</span>
+        </a>
+        <a href="productos/medias.html" class="burbuja">
+          <img src="https://cdn-icons-png.flaticon.com/512/3515/3515711.png" alt="medias" />
+          <span>Medias</span>
+        </a>
+        <a href="productos/shorts.html" class="burbuja">
+          <img src="https://cdn-icons-png.flaticon.com/512/3086/3086507.png" alt="Shorts" />
+          <span>Shorts</span>
+        </a>
+        <a href="productos/buzos.html" class="burbuja">
+          <img src="https://cdn-icons-png.flaticon.com/512/4045/4045952.png" alt="Buzos" />
+          <span>Buzos</span>
+        </a>
+        <a href="productos/remeras.html" class="burbuja">
+          <img src="https://cdn-icons-png.flaticon.com/512/7452/7452244.png" alt="Remeras" />
+          <span>Camisetas</span>
+        </a>
+        <a href="productos/gorras.html" class="burbuja">
+          <img src="https://cdn-icons-png.flaticon.com/512/2993/2993776.png" alt="Gorras" />
+          <span>Gorras</span>
+        </a>
+        <a href="productos/deportivas.html" class="burbuja">
+          <img src="https://cdn-icons-png.flaticon.com/512/2262/2262878.png" alt="Deportiva" />
+          <span>Deportiva</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="lanzamientos">
+      <h2>🔥 Nuevos lanzamientos</h2>
+    </section>
+
+    <div class="carrusel">
+      <button id="prev" class="flecha">&#10094;</button>
+      <div id="track" class="imagenes">
+        <a href="/productos-detalle/remeras/remeras25.html">
+        <img src="/img/imagen 1.png" alt="Imagen 1" class="img" loading="lazy" />
+        </a>
+        <a href="/productos-detalle/medias/media1.html">
+        <img src="/img/imagen 2.png" alt="Imagen 2" class="img" loading="lazy" />
+        </a>
+        <a href="/productos-detalle/short/short3.html">
+        <img src="/img/imagen 3.png" alt="Imagen 3" class="img" loading="lazy" />
+        </a>
+        <a href="/productos-detalle/camperas/campera.html">
+        <img src="/img/imagen 4.png" alt="Imagen 4" class="img" loading="lazy" />
+        </a>
+        <a href="/productos-detalle/medias/media.html">
+        <img src="/img/imagen 5.png" alt="Imagen 5" class="img" loading="lazy" />
+        </a>
+        <a href="/productos-detalle/conjuntos/conjunto1.html">
+        <img src="/img/imagen 6.png" alt="Imagen 6" class="img" loading="lazy" />
+        </a>
+        <a href="/productos-detalle/remeras/remeras26.html">
+        <img src="/img/imagen 7.png" alt="Imagen 7" class="img" loading="lazy" />
+        </a>
+        <a href="/productos-detalle/remeras/remeras27.html">
+        <img src="/img/imagen 8.png" alt="Imagen 8" class="img" loading="lazy" />
+        </a>
+
+
+      </div>
+      <button id="next" class="flecha">&#10095;</button>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">
+      <a href="https://tudireccion.com" target="_blank" title="Ir al portfolio">
+        <img src="https://cdn-icons-png.flaticon.com/512/3076/3076339.png" alt="Logo Hacker" />
+      </a>
+    </div>
+    <div class="footer-nombre">
+      <p>© 2025 Dress Indumentaria Deportiva</p>
+    </div>
+    <div class="redes-sociales">
+      <a href="https://instagram.com/dressgchu_" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/6422/6422200.png" alt="Instagram" />
+      </a>
+      <a href="https://tiktok.com/@tucuenta" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/6422/6422207.png" alt="TikTok" />
+      </a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script type="module">
+    import { supabase } from './supabaseClient.js';
+    window.supabase = supabase;
+
+    const userArea = document.getElementById('user-area');
+
+    async function renderUserArea() {
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user) {
+        userArea.innerHTML = `
+          <div class="user-dropdown">
+            <button class="user-trigger">
+              ${user.email} <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-menu">
+              <button onclick="logout()">Salir</button>
+              <a href="cart.html">Ver carrito</a>
+            </div>
+          </div>
+        `;
+      } else {
+        userArea.innerHTML = `
+          <a href="login.html" title="Ingresar">
+            <i class="fa-regular fa-user login-icon"></i>
+          </a>
+          <a href="cart.html" title="Carrito">
+            <i class="fa-solid fa-cart-shopping"><span class="badge">9</span></i>
+          </a>
+        `;
+
+        document.querySelectorAll('button[onclick^="agregarAlCarrito"]').forEach(btn => {
+          btn.disabled = true;
+          btn.innerText = "Iniciá sesión";
+        });
+      }
+    }
+
+    renderUserArea();
+  </script>
+
+  <script>
+    function agregarAlCarrito(nombre, precio) {
+      alert(`${nombre} agregado al carrito por $${precio}`);
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" crossorigin="anonymous"></script>
+
+  
+<script src="script.js" defer></script>
+
+</body>
+</html>

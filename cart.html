@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito de Compras</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #222;
+    }
+
+    #carrito-items div,
+    .compra-admin {
+      padding: 10px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    #carrito-total {
+      font-weight: bold;
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .input-group input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      background-color: #1a73e8;
+      color: white;
+      font-size: 16px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #155cc4;
+    }
+
+    #compras-confirmadas {
+      margin-top: 40px;
+      border-top: 2px solid #ddd;
+      padding-top: 20px;
+    }
+
+    .compra-admin {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  font-size: 14px;
+}
+
+    
+    #mensaje-confirmacion {
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    hr {
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+   <a href="index.html" class="volver-arriba" title="Volver al inicio">
+        <img src="https://cdn-icons-png.flaticon.com/512/507/507257.png" alt="Volver" width="24" height="24" />
+      </a>
+  <div class="container">
+    <h1>Tu carrito</h1>
+
+    <div id="carrito-items"></div>
+    <p id="carrito-total"></p>
+
+    <h2>Datos de envío</h2>
+    <input type="text" id="direccion" placeholder="Dirección">
+    <input type="text" id="codigo_postal" placeholder="Código Postal">
+
+    <button id="confirmar-compra">Confirmar compra</button>
+    <p id="mensaje-confirmacion" style="display: none;">✅ Compra confirmada</p>
+
+    <hr>
+
+    <div id="compras-confirmadas" style="display:none;">
+      <h2>Compras confirmadas (admin)</h2>
+      <div id="lista-compras"></div>
+    </div>
+  </div>
+
+  <script type="module" src="cart.js"></script>
+</body>
+</html>

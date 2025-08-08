@@ -1,0 +1,41 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registrarse</title>
+  <link rel="stylesheet" href="inicio.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Crear cuenta</h2>
+    <form id="register-form">
+      <input type="email" id="register-email" placeholder="Email" required />
+      <input type="password" id="register-password" placeholder="Contraseña (mínimo 6 caracteres)" required minlength="6" />
+      <button type="submit">Registrarse</button>
+    </form>
+    <p>¿Ya tenés cuenta? <a href="login.html">Iniciar sesión</a></p>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabaseClient.js';
+
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('register-email').value.trim();
+      const password = document.getElementById('register-password').value.trim();
+
+      const { error } = await supabase.auth.signUp({ email, password });
+
+      if (error) {
+        alert("Error al registrarse: " + error.message);
+      } else {
+        alert("¡Registro exitoso! Revisá tu correo para confirmar tu cuenta.");
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</body>
+</html>

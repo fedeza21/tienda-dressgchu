@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ingresar</title>
+  <link rel="stylesheet" href="inicio.css" />
+  <script type="module" src="supabaseClient.js"></script>
+</head>
+<body>
+  <main>
+    <h2>Iniciar sesión</h2>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Ingresar</button>
+    </form>
+
+   <p> ¿No tenés cuenta?<a href="register.html"> Registrate</a></p>
+  </main>
+
+  <script type="module">
+    import { supabase } from './supabaseClient.js';
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        alert('Error al iniciar sesión: ' + error.message);
+      } else {
+        location.href = 'index.html';
+      }
+    });
+
+    document.getElementById('register-link').addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = prompt("Ingresá tu email:");
+      const password = prompt("Ingresá tu contraseña:");
+
+      const { data, error } = await supabase.auth.signUp({ email, password });
+
+      if (error) {
+        alert('Error al registrarse: ' + error.message);
+      } else {
+        alert("Registrado correctamente. Revisá tu correo para confirmar.");
+      }
+    });
+  </script>
+</body>
+</html>

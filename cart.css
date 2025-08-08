@@ -1,0 +1,130 @@
+/* Contenedor general del carrito */
+#cart-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Cada ítem del carrito */
+.item-carrito {
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Resumen total */
+.resumen-carrito {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: right;
+}
+
+/* Botón para vaciar */
+.btn-vaciar {
+  background: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.btn-vaciar:hover {
+  background: #d73838;
+}
+
+/* 🛒 Contenedor principal */
+#cart-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* 🧩 Ítem individual del carrito */
+.item-carrito {
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+  transition: transform 0.2s;
+}
+
+.item-carrito:hover {
+  transform: scale(1.01);
+}
+
+/* 📦 Nombre y precio */
+.item-carrito h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.item-carrito p {
+  margin: 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* 💰 Resumen de total */
+.resumen-carrito {
+  text-align: right;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #111;
+}
+
+/* 🧹 Botón de vaciar */
+.btn-vaciar {
+  display: block;
+  margin: 2rem auto 0;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-vaciar:hover {
+  background: #d43838;
+}
+
+/* 📱 Responsive */
+@media (max-width: 500px) {
+  #cart-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .item-carrito h3 {
+    font-size: 1rem;
+  }
+
+  .item-carrito p,
+  .resumen-carrito {
+    font-size: 0.9rem;
+  }
+
+  .btn-vaciar {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis pedidos recientes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Mis pedidos recientes</h1>
+
+  <!-- Spinner de carga -->
+  <div id="loading" style="display: none;">Cargando pedidos...</div>
+
+  <!-- Contenedor de resultados -->
+  <div id="pedidos-container"></div>
+
+  <!-- Contenedor para el panel de admin -->
+  <h1>Panel de Pedidos</h1>
+  <div id="pedido-container"></div>
+
+  <!-- Script principal de pedidos de usuario -->
+  <script type="module" src="mis-pedidos.js"></script>
+
+  <!-- Script adicional para admin (pedido-container) -->
+  <script type="module">
+    import { getAllOrders } from './adminLogic.js';
+
+    const container = document.getElementById('pedido-container');
+
+    const renderPedidos = async () => {
+      const pedidos = await getAllOrders();
+      container.innerHTML = pedidos.map(pedido => `
+        <div class="pedido">
+          <h3>Usuario: ${pedido.user}</h3>
+          <p>Fecha: ${pedido.date}</p>
+          <p>Productos: ${pedido.items.join(', ')}</p>
+          <p>Total: $${pedido.total}</p>
+        </div>
+      `).join('');
+    };
+
+    renderPedidos();
+  </script>
+</body>
+</html>
