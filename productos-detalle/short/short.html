@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Buzo Gris Oversize</title>
 
-  <!-- Estilos -->
   <link rel="stylesheet" href="../../style.css" />
   <link rel="stylesheet" href="../../ropa.css" />
 </head>
@@ -15,33 +14,28 @@
     <nav>
       <div class="logo"><h1>DressGchu</h1></div>
       <div class="user-area">
-        <!-- Opcional: usuario/carrito -->
       </div>
     </nav>
   </header>
 
   <main class="detalle-producto">
     
-    <!-- Miniaturas a la izquierda -->
     <div class="miniaturas">
-      <img src="../../img/shorts.png" onclick="cambiarImagen(this.src)" alt="Vista 1" />
-      <img src="../../img/shorts.png" onclick="cambiarImagen(this.src)" alt="Vista 2" />
-      <img src="../../img/shorts.png" onclick="cambiarImagen(this.src)" alt="Vista 3" />
+      <img src="../../img/74.png" onclick="cambiarImagen(this.src)" alt="Vista 1" />
+      <img src="../../img/74.png" onclick="cambiarImagen(this.src)" alt="Vista 2" />
+      <img src="../../img/74.png" onclick="cambiarImagen(this.src)" alt="Vista 3" />
     </div>
 
-    <!-- Imagen central -->
     <div class="imagen-central">
-      <img id="imagenPrincipal" src="../../img/shorts.png" alt="shorts" />
+      <img id="imagenPrincipal" src="../../img/74.png" alt="shorts" />
     </div>
 
-    <!-- Información a la derecha -->
     <div class="info-producto">
       <h1>Media</h1>
       <p class="descripcion">Shorts con tela suave, ideal para media estación.</p>
       <p class="precio">$10.000</p>
       <p class="cuotas">3 cuotas sin interés de $1.666</p>
 
-      <!-- Selector de talle -->
       <label for="talle">Talle:</label>
       <select id="talle" class="select-talle">
         <option value="S">S</option>
@@ -54,14 +48,12 @@
       <p id="mensajeCarrito" style="color: green; font-weight: bold;"></p>
       <a href="../../cart.html" class="ver-carrito">Ver carrito →</a>
 
-      <!-- Flecha decorativa -->
       <a href="../../productos/shorts.html" class="volver-arriba" title="Volver al inicio">
         <img src="https://cdn-icons-png.flaticon.com/512/507/507257.png" alt="Volver" width="24" height="24" />
       </a>
     </div>
   </main>
 
-  <!-- Supabase + lógica -->
   <script type="module">
     import { supabase } from '../../supabaseClient.js';
 
@@ -93,14 +85,12 @@
         fecha,
       };
 
-      // Insertar en Supabase
       const { error: insertError } = await supabase.from('carrito').insert([producto]);
 
       if (insertError) {
         alert("Hubo un error al guardar 😓");
         console.error(insertError);
       } else {
-        // También guardar en localStorage (incluye nombre_producto)
         const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
         carrito.push({
           nombre: 'Short',         // 👈 nombre_producto
